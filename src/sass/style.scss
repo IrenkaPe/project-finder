@@ -1,0 +1,17 @@
+// 1. Normalize (reset stylów)
+@import 'normalize';
+
+// 2. Zmienne (używane przez wszystkie inne pliki)
+@import 'variables';
+
+// 3. Podstawowe style
+@import 'layout';
+@import 'typography';
+@import 'global';
+
+// 4. Style dla konkretnych podstron
+@import 'pages/about';
+@import 'pages/finder';
+
+// 5. Opcjonalnie: style dla pluginów (AOS)
+// @import 'aos';
