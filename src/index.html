@@ -4,41 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Finder</title>
-    <link rel="stylesheet" href="../src/css/style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+
+    <link rel="stylesheet" href="./css/style.css">
 </head>
+
 <body>
-    <div id="app">
-  <!-- Strona About -->
-  <section id="page-about" class="page active">
-    <div class="about-header">
-      <h1>PATHFINDER</h1>
-      <p>FOR TRAVELLERS</p>
-    </div>
-
-    <div class="about-content">
-      <div class="about-item" data-aos="fade-right">
-        <img src="./images/about-image-1.jpg" alt="Plan your journeys">
-        <div class="about-text">
-          <h2>PLAN YOUR JOURNEYS</h2>
-          <p>Pick attractions and book hotels</p>
+  <div id="app">
+    <!-- ABOUT -->
+    <section id="page-about" class="page active">
+      <div class="about-background">
+        <img src="./images/Minimalize-Boredom.jpg" alt="Background landscape" class="background-image">
+        <nav class="main-nav">
+          <div class="container">
+            <ul>
+              <li><a href="#page-about" class="nav-link active">ABOUT</a></li>
+              <li><a href="#page-finder" class="nav-link">FINDER</a></li>
+            </ul>
+          </div>
+        </nav>
+        <div class="about-header">
+          <h1>PATHFINDER</h1>
+          <p>FOR TRAVELLERS</p>
         </div>
       </div>
-
-      <div class="about-item reverse" data-aos="fade-left">
-        <div class="about-text">
-          <h2>MINIMALIZE BOREDOM</h2>
-          <p>Pick routes that are short and attractive</p>
+      <div class="about-content">
+        <div class="about-item" data-aos="fade-right">
+          <img src="./images/Plan-your-journays.jpg" alt="Plan your journeys" class="overlay-image">
+          <div class="about-text">
+            <h2>PLAN YOUR JOURNEYS</h2>
+            <p>Pick attractions and book hotels</p>
+          </div>
         </div>
-        <img src="./images/about-image-2.jpg" alt="Minimalize boredom">
-      </div>
-    </div>
-  </section>
 
-  <!-- Strona Finder - na razie pusta -->
-  <section id="page-finder" class="page">
-    <!-- Tu będzie siatka i logika gry -->
-  </section>
-</div>
-    <script type = "module" src="./js/script.js"></script>
+        <div class="about-item reverse" data-aos="fade-left">
+          <div class="about-text">
+            <h2>MINIMALIZE BOREDOM</h2>
+            <p>Pick routes that are short and attractive</p>
+          </div>
+          <img src="./images/Pathfinder.jpg" alt="Minimalize boredom">
+        </div>
+      </div>
+    </section>
+
+    <!-- FINDER -->
+    <section id="page-finder" class="page">
+      <div id="finder"></div>
+    </section>
+  </div>
+
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script type="module" src="./js/script.js"></script>
 </body>
 </html>

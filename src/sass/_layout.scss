@@ -1,7 +1,8 @@
 body {
+  
   background-color: black;
   color: white;
-  font-family: 'Arial', sans-serif;
+  font-family: 'Source Sans 3', sans-serif; 
 }
 
 .container {
@@ -9,7 +10,5 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
-  background-image: url('../images/background.jpg');
-background-size: cover;
-background-position: center;
+  
 }

@@ -1,7 +1,2 @@
-const app = {
-
-  init: function() {
-    console.log('aplikacja uruchomiona');
-  }
-};
+import app from './app.js';
 app.init();

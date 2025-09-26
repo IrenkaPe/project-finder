@@ -1,77 +1,228 @@
-.page {
-  display: none;
-  padding: 4rem 0;
+/* podstawy widoczności stron */
+.page { display: none; }
 
-  &.active {
-    display: block;
+.page.active { display: block; }
+
+/* --- Hero / background --- */
+.about-background {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.about-background .background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+}
+
+.about-background::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.8));
+  z-index: 1;
+}
+
+/* nav */
+.main-nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  padding: 1rem 0;
+}
+
+.main-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.main-nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  padding: .5rem 1rem;
+  letter-spacing: .1em;
+
+  &:hover{
+    cursor: pointer;
+    color: $color-primary;
   }
 }
 
+/* nagłówek hero */
 .about-header {
   text-align: center;
-  margin-bottom: 4rem;
-  color: white;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  z-index: 22;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-
-  h1 {
-    font-size: 5rem;
-    font-weight: bold;
-    letter-spacing: 10px;
-    margin: 0;
-  }
-
-  p {
-    font-size: 1.5rem;
-    margin: 0;
-  }
+  
 }
 
+.about-header h1 {
+  font-size: 5rem;
+  font-weight: 900;
+  letter-spacing: clamp(7px, 4vw, 35px);
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.about-header p {
+  text-align: right;
+  margin: 0;
+  padding-right: 25px;
+  font-size: 1.5rem;
+  letter-spacing: 10px;
+}
+
+/* --- content (sekcja z obrazkami + tekstami) --- */
 .about-content {
+  padding: 4rem 2rem;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 2rem;
+}
 
+/* ustawienie kontenera itemów */
+.about-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 5rem auto;
+  max-width: 1100px;
+}
+
+.about-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+  object-fit: cover;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+  position: relative;
+  z-index: 12; 
+}
+
+/* Główne: overlay-image (dziewczyny) - mniejszy "panel", ma nachodzić na hero */
+
+
+.about-item .overlay-image {
+  align-self: flex-start;
+  max-width: 40%;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.45);
+}
+
+.about-content .about-item:first-of-type {
+  margin-top: -15rem;
+  z-index: 10;
+}
+
+.about-item:first-of-type .about-text {
+  position: absolute;
+  bottom: 4rem;
+  left: auto;
+  right: 30%;
+  text-align: left;
+  z-index: 30;
+  max-width: 40%;      
+}
+
+/* DRUGI OBRAZ (sekcja reverse)  */
+
+
+.about-item.reverse {
+  position: relative;
+  justify-content: flex-end; 
+}
+
+.about-item.reverse img {
+  max-width: 75%;
+  margin-left: auto;   
+}
+
+.about-item.reverse .about-text {
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  right: auto;
+  text-align: left;
+  max-width: 35%;
+  z-index: 30;
+}
+
+.about-item .about-text h2 {
+  margin: 0 0 .5rem 0;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.about-item .about-text p {
+  margin: 0;
+  font-size: 1.1rem;
+  line-height: 1.4;
+  letter-spacing: 1px;
+}
+
+/* --- Responsywność --- */
+@media (max-width: 1024px) {
+  /* na średnich ekranach zmniejszamy wielkości obrazków */
+  .about-item .overlay-image { flex-basis: 48%;
+    max-width: 600px; }
+
+  .about-item.reverse img { flex-basis: 60%; }
+
+  .about-content .about-item:first-of-type { margin-top: -6rem; }
+}
+
+@media (max-width: $breakpoint-tablet) {
+  .about-header h1 { font-size: 3rem; }
+
+  .about-header p { font-size: 1rem;
+    letter-spacing: 6px; }
+
+ 
   .about-item {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    margin-bottom: 4rem;
-
-    @media (max-width: 768px) {
-      flex-direction: column;
-      text-align: center;
-    }
-
-    &.reverse {
-      flex-direction: row-reverse;
-
-      @media (max-width: 768px) {
-        flex-direction: column;
-      }
-    }
-
-    img {
-      width: 100%;
-      max-width: 500px;
-      height: auto;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    }
-
-    .about-text {
-      flex: 1;
-
-      h2 {
-        color: white;
-        font-size: 2rem;
-        margin: 0 0 1rem 0;
-      }
-
-      p {
-        color: #e0e0e0;
-        font-size: 1.1rem;
-        line-height: 1.6;
-      }
-    }
+    flex-direction: column;
+    text-align: center;
+    margin: 3rem auto;
   }
+
+  
+  .about-item .overlay-image,
+  .about-item.reverse img,
+  .about-item img {
+    flex-basis: 100%;
+    max-width: 100%; /*pełna szerokość zdjęć*/
+    width: 100%;
+    border-radius: .8rem;
+  }
+
+ 
+  .about-item .about-text {/*usuwam absolute tekst ma być pod obrazkiem !*/
+    position: static;
+    max-width: 100%;
+    margin-top: 1rem;
+    text-align: center;
+  }
+
+
 }

@@ -1,9 +1,18 @@
 body {
   font-family: $font-main;
-  color: $color-text;
+  color: white;
   line-height: 1.6;
 }
 
-h1, h2, h3 {
-  color: white;
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 $spacing-md 0;
+  font-weight: 700;
+  font-family: $font-main;
+}
+
+h1 {
+  font-size: 5rem;
+  @media (max-width: $breakpoint-tablet) {
+    font-size: 2rem;
+  }
 }
