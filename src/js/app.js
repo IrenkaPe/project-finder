@@ -1,9 +1,9 @@
 // app.js
-/* global Finder */
+
 
 import { select, classNames } from '../js/settings.js';
 import AboutPage from './modules/AboutPage.js';
-//import Finder from './modules/Finder.js';
+import Finder from './modules/Finder.js';
 
 const app = {
   pages: {},

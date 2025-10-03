@@ -1,5 +1,9 @@
-
+/* global Handlebars */
 const select = {
+  templateOf: {
+    finderPage: '#finder-page-template',
+  },
+
   containerOf: {
     pages: '#app', // kontener, w którym są wszystkie podstrony
     about: '#page-about',
@@ -30,4 +34,10 @@ const classNames = {
   }
 };
 
-export { select, classNames };
+const templates = {
+  finderPage: Handlebars.compile(document.querySelector(select.templateOf.finderPage).innerHTML),
+};
+
+
+
+export { select, classNames, templates };

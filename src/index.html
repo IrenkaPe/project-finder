@@ -9,7 +9,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
-
     <link rel="stylesheet" href="./css/style.css">
 </head>
 
@@ -52,12 +51,42 @@
     </section>
 
     <!-- FINDER -->
-    <section id="page-finder" class="page">
-      <div id="finder"></div>
+    <section id ="page-finder" class="page page-finder">
+      <div class="about-background">
+        <img src="./images/Minimalize-Boredom.jpg" alt="Background landscape" class="background-image">
+        <nav class="main-nav">
+          <div class="container">
+            <ul>
+              <li><a href="#page-about" class="nav-link">ABOUT</a></li>
+              <li><a href="#page-finder" class="nav-link active">FINDER</a></li>
+            </ul>
+          </div>
+        </nav>
+        <div class="about-header">
+          <h1>PATHFINDER</h1>
+          <p>FOR TRAVELLERS</p>
+        </div>
+      </div>
+
+      <div class="finder-content">
+        <div id="finder" class="finder-overlay">
+          <h2 id="finder-title">{{ title }}</h2>
+          <div id="finder-grid"></div>
+          <button id="finder-submit-btn" class="btn btn-primary" type="button">{{ buttonText }}</button>
+        </div>
+      </div>
     </section>
   </div>
 
+  <script id="finder-page-template" type="text/x-handlebars-template">
+  <h2 id="finder-title">{{ title }}</h2>
+  <div id="finder-grid"></div>
+  <button id="finder-submit-btn" class="btn btn-primary">{{ buttonText }}</button>
+</script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script type="module" src="./js/script.js"></script>
+
 </body>
 </html>
