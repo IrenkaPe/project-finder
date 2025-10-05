@@ -15,6 +15,7 @@ class Finder {
     }
     thisFinder.start = null;
     thisFinder.finish = null;
+    thisFinder.bestRoute = null; 
     thisFinder.render();
   }
 
@@ -54,11 +55,19 @@ class Finder {
         if(thisFinder.finish && thisFinder.finish.row === row && thisFinder.finish.col === col){
           classes += ' ' + classNames.finder.finish;
         }
-                
+        if (thisFinder.bestRoute) {
+          for (let i = 0; i < thisFinder.bestRoute.length; i++) {
+            const point = thisFinder.bestRoute[i];
+            if (point.row === row && point.col === col) {
+              classes += ' ' + classNames.finder.best;
+              break; // nie trzeba sprawdzać dalej
+            }
+          }
+        }        
         html += '<div class="'+ classes+'"data-row="' + row +'"data-col="' + col +'"></div>';
       }
     }
-    // 4. Wstawiamy siatkę do kontenera #finder-grid
+    // Wstawiamy siatkę do kontenera #finder-grid
     thisFinder.element.querySelector(select.finder.grid).innerHTML = html;
     console.log('Grid selector:', select.finder.grid);
 
@@ -142,11 +151,13 @@ class Finder {
         });
       }
     }
+
     else if (thisFinder.step === 2) {
       const submitBtn = thisFinder.element.querySelector(select.finder.submitBtn);
       if (submitBtn) {
         submitBtn.addEventListener('click',function(e){
           e.preventDefault();
+          thisFinder.bestRoute = thisFinder.computeBestRoute();
           thisFinder.changeStep(3);
         });
       }
@@ -159,7 +170,33 @@ class Finder {
         });
       }
     }
+
+    else if (thisFinder.step === 3) {
+      const submitBtn = thisFinder.element.querySelector(select.finder.submitBtn);
+      if (submitBtn) {
+        submitBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          // Resetuj wszystko
+          thisFinder.step = 1;
+          thisFinder.start = null;
+          thisFinder.finish = null;
+          thisFinder.bestRoute = null;
+        
+          // Wyczyść grid (wszystkie pola na false)
+          for (let row = 1; row <= 10; row++) {
+            for (let col = 1; col <= 10; col++) {
+              thisFinder.grid[row][col] = false;
+            }
+          }
+        
+          thisFinder.render();
+        });
+      }
+    }
   }
+
+
+
   pickStartOrFinish(fieldElem){
     const thisFinder = this;
 
@@ -198,6 +235,78 @@ class Finder {
   // Jeśli finish już jest wybrany — nie rób nic (lub pozwól na zmianę)
   // Dla uproszczenia: nie pozwalamy na zmianę po wybraniu obu
   }
+
+  computeBestRoute() {
+    const thisFinder = this;
+
+    if (!thisFinder.start||!thisFinder.finish){
+      alert ('Please select both start and finish!');
+      return[];
+    }
+
+    const visited = [];
+    visited.push(thisFinder.start.row +','+thisFinder.start.col);
+
+    const queue = [{
+      row: thisFinder.start.row, 
+      col: thisFinder.start.col,
+      path: [] 
+    }];
+
+    const directions = [
+      {dr: -1, dc: 0 }, // up
+      {dr: 1, dc: 0},// down
+      {dr: 0, dc: -1},
+      {dr: 0, dc: 1},
+    ];
+
+    while (queue.length > 0){
+      const current = queue.shift();
+      if (current.row === thisFinder.finish.row && current.col === thisFinder.finish.col){
+        return current.path.concat({ row: thisFinder.finish.row, col: thisFinder.finish.col});
+      }
+      for ( let i = 0; i <directions.length; i++) {
+        const dir = directions[i];
+        const newRow = current.row + dir.dr;
+        const newCol = current.col + dir.dc;
+
+        // Czy nowe pole jest poza planszą?
+        if (newRow < 1 || newRow > 10 || newCol < 1 || newCol > 10) {
+          continue;
+        }
+
+        // Czy pole nie jest częścią narysowanej ścieżki?
+        if (!thisFinder.grid[newRow][newCol]) {
+          continue;
+        }
+
+        // Stwórz klucz dla tego pola (zamiast template stringa)
+        const key = newRow + ',' + newCol;
+
+        // Czy już odwiedziliśmy to pole?
+        if (visited.indexOf(key) !== -1) {
+          continue;
+        }
+
+        // Zapamiętaj, że tu byliśmy
+        visited.push(key);
+
+        // Dodaj nowe pole do kolejki (bez spread operatora)
+        const newPath = current.path.slice(); // kopia tablicy
+        newPath.push({ row: current.row, col: current.col });
+
+        queue.push({
+          row: newRow,
+          col: newCol,
+          path: newPath
+        });
+      }
+    } 
+
+    // Jeśli pętla się skończyła, a nie znaleźliśmy mety
+    alert('No path found between start and finish!');
+    return [];
+  }
 }
 
-export default Finder;
+export default Finder; 

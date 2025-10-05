@@ -30,7 +30,8 @@ const classNames = {
     field: 'field',
     active: 'active',
     start: 'start',
-    finish: 'finish'
+    finish: 'finish',
+    best: 'best'
   }
 };
 
